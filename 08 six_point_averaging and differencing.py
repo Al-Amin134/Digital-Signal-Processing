@@ -1,46 +1,28 @@
 import numpy as np
 import matplotlib.pyplot as plt
+
 def six_point_averaging(x):
-    y=[]
-    length = len(x)
-    for n in range(length):
+    len_x = len(x)
+    y = np.zeros_like(x, dtype=float)
+    # y = []
+    for n in range (len_x):
         sum = 0
         for i in range(6):
             if(n-i>=0):
                 sum+=x[n-i]
-        sum/=6
-        y.append(sum)
+        y[n]=sum/6
+        # y.append(sum/6)
     return y
-
-def six_point_deferencing(x):
-
-    y = []
-    x_len = len(x)
-    for n in range(x_len):
-       if(n-6>=0):
-         y.append(x[n]-x[n-6])
-       else:
-          y.append(0)
+def six_point_differencing(x):
+    len_x = len(x)
+    y = np.zeros_like(x,dtype=float)
+    for n in range(5,len_x):
+        y[n] = (x[n]-x[n-1]+x[n-2]-x[n-3]+x[n-4]-x[n-5])/6
     return y
 
 
 x = [1,3,-2,4,5,-1,6,8,2,-3]
-v = six_point_averaging(x)
-print("mainx x(n) : ",x)
-print("6-point averaging", [round(val,2)for val in v])
-
-d = six_point_deferencing(x)
-print("6-point differencing",[round(val,2) for val in d])
-plt.subplot(3,2,1)
-a = np.arange(0,len(x))
-plt.stem(a,x)
-plt.title("main x(n)")
-
-plt.subplot(3,2,2)
-plt.stem(a,v)
-plt.title("6-point averaging")
-
-plt.subplot(3,2,3)
-plt.stem(a,d)
-plt.title("6-point differencing")
-plt.show()
+avg1 = six_point_averaging(x)
+diff = six_point_differencing(x)
+print("six point averaging",[round(float(val),2) for val in avg1])
+print("six point differencing",[round(float(val),2) for val in diff])
