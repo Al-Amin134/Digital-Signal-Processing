@@ -35,7 +35,7 @@ x_hanning = hanning(N)
 hanning_x = x*x_hanning
 
 x_dft = dft(x)
-x_hanning_dft = dft(x_hanning)
+x_hanning_dft = dft(hanning_x)
 
 x_idft = idft(x_dft)
 x_idft_hanning = idft(x_hanning_dft)
