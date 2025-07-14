@@ -1,3 +1,48 @@
+//Jodi convolution diyei krte chai:
+import numpy as np
+import matplotlib.pyplot as plt
+
+def correlation(x,y):
+    y = y[::-1]
+    len_x = len(x)
+    len_y = len(y)
+    len_res = len(x)+len(y)-1
+    res = np.zeros(len_res)
+    for n in range(len_res):
+        sum = 0
+        for k in range(len_y):
+            if 0<=n-k<len_x:
+                sum+=(y[k]*x[n-k])
+        res[n]=sum 
+    return res 
+
+
+def normalized(x,y):
+    x = np.array(x)
+    y = np.array(y)
+    numerator = np.sum(x*y)
+    denominator = np.sqrt(np.sum(x*x))*np.sqrt(np.sum(y*y))
+    return numerator/denominator
+
+x = [1,2,3,4,5]
+y = [7,8,9,10,13]
+z = [1,1,1,1,0]
+
+y1 = correlation(x,y)
+y2 =np.correlate(x,y,mode='full')
+
+y3 = normalized(y,z) 
+
+print([round(float(val),2)for val in y1])
+print([round(float(val),2)for val in y2])
+
+print(y3)
+
+
+
+
+
+// Shudhu correlation alada kre
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -21,3 +66,4 @@ y3 = y1[::-1]
 y2 = np.correlate(x,y,mode="full")
 print(y3)
 print(y2)
+
